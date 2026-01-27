@@ -23,6 +23,7 @@ vim.opt.expandtab = true
 vim.opt.colorcolumn = "120"
 
 vim.opt.splitbelow = true
+vim.o.splitright = true
 
 --============================================================
 -- lazy.nvim bootstrap
