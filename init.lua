@@ -16,6 +16,9 @@ vim.opt.scrolloff = 8
 vim.opt.background = "dark"
 vim.opt.clipboard = "unnamedplus"
 
+vim.opt.exrc = true
+vim.opt.secure = true
+
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -206,15 +209,10 @@ local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
 local caps = ok_cmp and cmp_lsp.default_capabilities() or nil
 
 vim.lsp.config("clangd", {
-  cmd = {
-    vim.fn.expand("$HOME/.local/bin/clangd"),
-    "--background-index",
-    "-j=64",
-    "--log=error",
-    "--clang-tidy",
-  },
+  cmd = { "clangd" },
   capabilities = caps,
 })
+
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "cpp" },
@@ -289,4 +287,5 @@ vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", { silent = true })
 vim.keymap.set("n", "<leader>n", "<cmd>bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<leader>p", "<cmd>bprev<CR>", { desc = "Previous buffer" })
 vim.keymap.set("v", "<leader>cf", ":!clang-format<CR>", { silent = true })
+
 
