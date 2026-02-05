@@ -194,12 +194,48 @@ local function apply_hl_fixes()
   link("@keyword.storage", "Keyword")
   link("@keyword.return", "Keyword")
   link("Statement", "Keyword")
+  vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#fb4934", bg = "NONE", bold = true })
+  vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn",  { fg = "#fabd2f", bg = "NONE", bold = true })
+  vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo",  { fg = "#83a598", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint",  { fg = "#8ec07c", bg = "NONE" })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, sp = "#fb4934" })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",  { undercurl = true, sp = "#fabd2f" })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo",  { undercurl = true, sp = "#83a598" })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint",  { undercurl = true, sp = "#8ec07c" })
 end
 
 apply_hl_fixes()
 
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = apply_hl_fixes,
+})
+
+
+
+--============================================================
+-- Diagnostics display (clangd warnings/errors inline)
+--============================================================
+vim.diagnostic.config({
+  virtual_text = {
+    spacing = 2,
+    prefix = "●", -- or "▎" or "" if you prefer none
+  },
+  signs = true,
+  underline = true,
+  severity_sort = true,
+  update_in_insert = false,
+  float = {
+    border = "rounded",
+    source = "always",
+  },
+})
+
+vim.o.updatetime = 250
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false })
+  end,
 })
 
 --============================================================
