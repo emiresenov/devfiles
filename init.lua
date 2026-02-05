@@ -247,6 +247,7 @@ local caps = ok_cmp and cmp_lsp.default_capabilities() or nil
 vim.lsp.config("clangd", {
   cmd = { "clangd" },
   capabilities = caps,
+  filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
 })
 
 
