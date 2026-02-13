@@ -178,6 +178,34 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>o", "<cmd>NvimTreeFindFile<CR>", { desc = "Reveal file in tree" })
     end,
   },
+
+  {
+    "jmacadie/telescope-hierarchy.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require("telescope").load_extension("hierarchy")
+    end,
+    keys = {
+      { "<leader>ci", "<cmd>Telescope hierarchy incoming_calls<cr>", desc = "Hierarchy: incoming calls" },
+      { "<leader>co", "<cmd>Telescope hierarchy outgoing_calls<cr>", desc = "Hierarchy: outgoing calls" },
+    },
+  },
+    -- Outline sidebar (symbols tree)
+  {
+    "hedyhli/outline.nvim",
+    cmd = { "Outline", "OutlineOpen", "OutlineClose", "OutlineFocus" },
+    keys = {
+      { "<leader>ou", "<cmd>Outline<CR>", desc = "Toggle outline" },
+    },
+    opts = {}, -- keep defaults; customize later if needed
+    config = function(_, opts)
+      require("outline").setup(opts)
+    end,
+  },
+
 })
 
 --============================================================
@@ -274,8 +302,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, opts)
 
     vim.keymap.set("n", "gl", vim.diagnostic.open_float, { buffer = ev.buf, desc = "Line diagnostics" })
-    vim.keymap.set("n", "<leader>ci", vim.lsp.buf.incoming_calls, { buffer = ev.buf, desc = "Incoming calls" })
-    vim.keymap.set("n", "<leader>co", vim.lsp.buf.outgoing_calls, { buffer = ev.buf, desc = "Outgoing calls" })
+    --vim.keymap.set("n", "<leader>ci", vim.lsp.buf.incoming_calls, { buffer = ev.buf, desc = "Incoming calls" })
+    --vim.keymap.set("n", "<leader>co", vim.lsp.buf.outgoing_calls, { buffer = ev.buf, desc = "Outgoing calls" })
   end,
 })
 
