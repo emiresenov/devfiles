@@ -56,7 +56,6 @@ require("lazy").setup({
     priority = 1000,
     lazy = false,
     init = function()
-      -- Keep this in init so it is set before :colorscheme
       vim.g.gruvbox_material_background = "hard" -- "soft" | "medium" | "hard"
       vim.g.gruvbox_material_foreground = "material"
       vim.g.gruvbox_material_enable_italic = 1
@@ -124,8 +123,14 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("lualine").setup({
-        options = {
-          theme = "auto",
+        options = { theme = "auto" },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_c = { { "filename", path = 1 } },
+          lualine_x = { "encoding", "filetype" },
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
         },
       })
     end,
@@ -179,6 +184,7 @@ require("lazy").setup({
     end,
   },
 
+  -- Call hierarchy
   {
     "jmacadie/telescope-hierarchy.nvim",
     dependencies = {
@@ -192,7 +198,7 @@ require("lazy").setup({
       { "<leader>ci", "<cmd>Telescope hierarchy incoming_calls<cr>", desc = "Hierarchy: incoming calls" },
       { "<leader>co", "<cmd>Telescope hierarchy outgoing_calls<cr>", desc = "Hierarchy: outgoing calls" },
     },
-  },
+  }, 
     -- Outline sidebar (symbols tree)
   {
     "hedyhli/outline.nvim",
@@ -245,7 +251,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 vim.diagnostic.config({
   virtual_text = {
     spacing = 2,
-    prefix = "●", -- or "▎" or "" if you prefer none
+    prefix = "●",
   },
   signs = true,
   underline = true,
