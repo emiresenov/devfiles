@@ -1,6 +1,7 @@
 vim.api.nvim_create_autocmd({"VimResized","FocusGained"}, {
   callback = function()
     vim.cmd("wincmd =")
+    vim.cmd("redraw!")
   end,
 })
 

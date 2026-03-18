@@ -1,5 +1,4 @@
 require("config.options")
-require("config.clipboard")
 require("plugins")
 require("config.diagnostics")
 require("config.lsp")
