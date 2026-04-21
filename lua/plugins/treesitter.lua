@@ -9,7 +9,7 @@ return {
       end
 
       ts.setup({
-        ensure_installed = { "c", "cpp", "lua", "vim", "vimdoc" },
+        ensure_installed = { "c", "cpp", "lua", "python", "rust", "vim", "vimdoc" },
         highlight = { enable = true },
         indent = { enable = true },
       })
