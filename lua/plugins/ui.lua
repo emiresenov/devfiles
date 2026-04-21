@@ -1,26 +1,35 @@
 return {
   {
-    "sainnhe/gruvbox-material",
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
     lazy = false,
-    init = function()
-      vim.g.gruvbox_material_background = "hard"
-      vim.g.gruvbox_material_foreground = "material"
-      vim.g.gruvbox_material_enable_italic = 1
-      vim.g.gruvbox_material_disable_italic_comment = 0
-    end,
     config = function()
-      vim.cmd.colorscheme("gruvbox-material")
+      require("catppuccin").setup({
+        flavour = "mocha",
+        integrations = {
+          lualine = true,
+          gitsigns = true,
+          treesitter = true,
+        },
+      })
+
+      vim.cmd.colorscheme("catppuccin")
       require("config.highlights").apply()
     end,
   },
 
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "catppuccin/nvim",
+    },
     config = function()
       require("lualine").setup({
-        options = { theme = "auto" },
+        options = {
+          theme = "auto",
+        },
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diff", "diagnostics" },
@@ -37,9 +46,9 @@ return {
 
   {
     "hedyhli/outline.nvim",
-    cmd = { "Outline", "OutlineOpen", "OutlineClose", "OutlineFocus" },
+    cmd = { "Outline", "OutlineOpen", "Outlineclose", "OutlineFocus" },
     keys = {
-      { "<leader>ou", "<cmd>Outline<CR>", desc = "Toggle outline" },
+      { "<leader>ou", "<cmd>Outline<cr>", desc = "toggle outline" },
     },
     opts = {},
   },
